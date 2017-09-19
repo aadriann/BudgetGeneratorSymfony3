@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% block content %}
+        <div class="container" ng-controller="FormController as vm">
+            <div class="main">
+                <div class="main-login main-center">
+                    <h5>Create your budget!.</h5>
+                    <form name="form" method="post" action="{{ path('add') }}">
+                        <div class="step-1" ng-show="vm.step === 1">
+                            <div class="form-group">
+                                <label for="description" class="cols-sm-2">Build your idea (required)</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pencil fa" aria-hidden="true"></i></span>
+                                        <input ng-model="description" type="text" class="form-control" name="description" id="description" placeholder="Describe your project" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date" class="cols-sm-2">Estimated date</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
+                                        <select ng-model="date" ng-options="value.text for value in vm.dateCombo track by value.text"
+                                                class="form-control" name="date">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-2" ng-show="vm.step === 2">
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2">Category (required)</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-building fa" aria-hidden="true"></i></span>
+                                        <select ng-model="category" ng-options="value.name for value in vm.categories track by value.name"
+                                                ng-change="vm.getSubCategories(category.id)" class="form-control" required="required" name="category">
+                                        </select>
+                                        <input type="hidden" value="category.id">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-if="vm.subCategories !== null">
+                                <label for="email" class="cols-sm-2">Subcategory (required)</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-building-o fa" aria-hidden="true"></i></span>
+                                        <select ng-model="subcategory" ng-options="value.name for value in vm.subCategories track by value.name"
+                                                class="form-control" required="required" name="subcategory">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2">Price</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-euro fa" aria-hidden="true"></i></span>
+                                        <select ng-model="price" ng-options="value.text for value in vm.priceCombo track by value.text"
+                                                class="form-control" name="price">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-3" ng-show="vm.step === 3">
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2">Name (required)</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input ng-model="name" type="text" class="form-control" name="name" id="name" placeholder="Put Your Name" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2">Email (required)</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-mail-forward fa" aria-hidden="true"></i></span>
+                                        <input ng-model="email" type="email" class="form-control" name="email" id="email" placeholder="Put Your Email" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2">Phone (required)</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                                        <input ng-model="phone" type="tel" class="form-control" name="phone" id="tel" placeholder="Put Your Phone" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="" ng-if="vm.step > 1" class="btn btn-primary" ng-click="vm.prevStep()">Previous</a>
+                        <a href="" ng-if="vm.step < 3" ng-class="{'pull-right': vm.step > 1}" class="btn btn-primary"
+                           ng-click="vm.nextStep()">Next</a>
+                        <a href="{{ path('index') }}"class="btn btn-primary">Back to index</a>
+                        <button ng-if="vm.step === 3" class="btn btn-primary pull-right" ng-disabled="!form.$valid">Send</button>
+                        </hr>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

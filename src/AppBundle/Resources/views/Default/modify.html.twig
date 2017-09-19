@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% block content %}
+        <div class="container">
+            <div class="main">
+                <div class="main-login main-center" ng-controller="FormController as vm">
+                    <h5>Modify your budget!.</h5>
+                    <form name="form" method="post" action="{{ path('update') }}">
+                        <input type="hidden" name="id" value="{{ budget.id }}">
+                        <input type="hidden" name="status" value="{{ budget.status }}">
+                        <div>
+                            <div class="form-group">
+                                <label for="description" class="cols-sm-2">Title</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pencil fa" aria-hidden="true"></i></span>
+                                        <input type="text" value="{{ budget.title }}" class="form-control" name="title" id="title" placeholder="Describe your project" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2">Category</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-building fa" aria-hidden="true"></i></span>
+                                        <select ng-options="value.name for value in vm.categories track by value.name"
+                                                ng-model="category" ng-change="vm.getSubCategories(category.id)" class="form-control" required="required" name="category">
+                                        </select>
+                                        <input type="hidden" value="category.id">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="vm.subCategories !== null">
+                            <label for="email" class="cols-sm-2">Subcategory</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-building-o fa" aria-hidden="true"></i></span>
+                                    <select ng-options="value.name for value in vm.subCategories track by value.name"
+                                            ng-model="subcategory" class="form-control" required="required" name="subcategory">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,37 @@
+add:
+    path: /add
+    defaults: {_controller: AppBundle:Default:add }
+
+list:
+    path: /read
+    defaults: {_controller: AppBundle:Default:read }
+
+update:
+    path: /update
+    defaults: {_controller: AppBundle:Default:update }
+    methods: [POST]
+
+publish:
+    path: /publish
+    defaults: {_controller: AppBundle:Default:publish }
+    methods: [POST]
+
+discard:
+    path: /discard
+    defaults: {_controller: AppBundle:Default:discard }
+    methods: [POST]
+    requirements:
+      id: "[0-9]+"
+
+form:
+    path: /form
+    defaults: {_controller: AppBundle:Default:form }
+
+modify:
+    path: /modify
+    defaults: {_controller: AppBundle:Default:modify }
+    methods: [POST, GET]
+
+index:
+    path: /{page}
+    defaults: { _controller: AppBundle:Default:index, page:1}

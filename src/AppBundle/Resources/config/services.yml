@@ -1,0 +1,4 @@
+services:
+#    habitissimo_challenge.example:
+#        class: HabitissimoChallengeBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

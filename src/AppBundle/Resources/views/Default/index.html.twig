@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block content %}
+        <div class="container" ng-controller="FormController as vm">
+            <h2>Budget List: Check your budget</h2>
+            <a href="{{ path('form') }}" class="btn btn-primary pull-right">Add <i class="fa fa-plus"></i></a>
+            <form method="POST" action="{{ path('index') }}">
+                <input text="email" name="email">
+                <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+            </form>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <th>Titulo</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Subcategory</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Acciones</th>
+                </thead>
+                {% for budget in budgets %}
+                    <tr>
+                        <td><strong>{{budget.title}}</strong></td>
+                        <td><strong>{{budget.description}}</strong></td>
+                        <td><strong>{{budget.date}}</strong></td>
+                        <td><strong>{{budget.category}}</strong></td>
+                        <td><strong>{{budget.subcategory}}</strong></td>
+                        <td><strong>{{budget.price}}</strong></td>
+                        <td><strong>{{budget.status}}</strong></td>
+                        <td>
+                            <form method="post" name="publish" action="{{path('discard')}}">
+                                <input type="hidden" value="{{ budget.id }}" name="id">
+                                <button class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                            <form method="post" name="publish" action="{{path('publish')}}">
+                                <input type="hidden" value="{{ budget.id }}" name="id">
+                                <button ng-disabled="{% if budget.title == null %} true {% endif %}" class="btn btn-primary">
+                                    <i class="fa fa-share-square-o"></i>
+                                </button>
+                            </form>
+                            <form name="modify" method="post" action="{{ path('modify') }}">
+                                <input type="hidden" value="{{ budget.id }}" name="id">
+                                <button ng-disabled="vm.setDisabled({{ budget.status }})" class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                            </form>
+
+                        </td>
+                        {% if budget.title == null %}
+                            {% if budget.status != "DISCARDED" %}
+                                <td>You must add a title if you want publish your budget</td>
+                            {% endif %}
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if(page==1)%}
+
+                    {%else%}
+                        {% set page = page-1 %}
+                    {%endif%}
+
+                    <li class="page-item"><a class="page-link" href="{{ path('index', {"page":page}) }}">&laquo;</a></li>
+                    {% for i in 1..pagesCount %}
+                        <li class="page-item"><a class="page-link" href="{{ path('index', {"page":i}) }}">{{i}}</a></li>
+                    {% endfor %}
+
+                    {% if(page_m==pagesCount)%}
+
+                    {%else%}
+                        {% set page_m = page_m+1 %}
+                    {%endif%}
+                    <li class="page-item"><a class="page-link" href="{{ path('index', {"page":page_m}) }}">&raquo;</a></li>
+                </ul>
+            </nav>
+        </div>
+    {% endblock %}
+{% endblock %}

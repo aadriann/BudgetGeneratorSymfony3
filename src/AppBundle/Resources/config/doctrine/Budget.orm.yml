@@ -1,0 +1,48 @@
+AppBundle\Entity\Budget:
+    type: entity
+    table: budgets
+    repositoryClass: AppBundle\Repository\BudgetRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+        description:
+            type: string
+            length: 255
+        date:
+            type: string
+            length: 255
+            nullable: true
+        category:
+            type: string
+            length: 255
+            nullable: true
+        subcategory:
+            type: string
+            length: 255
+            nullable: true
+        price:
+            type: string
+            length: 255
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+        created_at:
+            type: datetime
+    manyToOne:
+      userId:
+        targetEntity: AppBundle\Entity\Client
+        inversedBy: budget
+        joinColumn:
+          name: user_id
+          referencedColumnName: id
+    lifecycleCallbacks: {  }

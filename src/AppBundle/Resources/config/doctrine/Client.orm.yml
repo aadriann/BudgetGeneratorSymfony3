@@ -1,0 +1,36 @@
+AppBundle\Entity\Client:
+    type: entity
+    table: clients
+    repositoryClass: AppBundle\Repository\ClientRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        lastName:
+            type: string
+            length: 255
+            column: last_name
+        email:
+            type: string
+            length: 255
+            unique: true
+        phone:
+            type: string
+            length: 255
+        address:
+            type: string
+            length: 255
+        created_at:
+            type: datetime
+    oneToMany:
+        budget:
+          targetEntity: AppBundle\Entity\Budget
+          mappedBy: userId
+          cascade: ["persist"]
+    lifecycleCallbacks: {  }
