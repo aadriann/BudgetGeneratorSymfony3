@@ -8,7 +8,10 @@
 
 namespace AppBundle\Entity;
 
-
+/**
+ * Class Status
+ * @package AppBundle\Entity
+ */
 class Status
 {
     private $pending = "PENDING";

@@ -1,10 +1,10 @@
 <?php
 
 namespace AppBundle\Entity;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
- * Client
+ * Class Client
+ * @package AppBundle\Entity
  */
 
 class Client
@@ -40,6 +40,9 @@ class Client
      */
     private $address;
 
+    /**
+     * @var budget
+     */
     private $budget;
 
     private $created_at;

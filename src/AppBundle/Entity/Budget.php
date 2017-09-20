@@ -3,7 +3,8 @@
 namespace AppBundle\Entity;
 
 /**
- * Budget
+ * Class Budget
+ * @package AppBundle\Entity
  */
 class Budget
 {
@@ -53,8 +54,14 @@ class Budget
      */
     private $status;
 
+    /**
+     * @var datetime
+     */
     private $created_at;
 
+    /**
+     * @var client
+     */
     private $client;
 
     public function __construct() {
